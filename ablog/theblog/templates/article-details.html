@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }} {% endblock %}
+{% block content %}
+<h1>{{post.title}}</h1>
+<small>By: {{post.author}} - {{post.post_date }} </small>
+
+<hr>
+{{post.body|safe}}</br>
+{% if user.is_authenticated and user.id == post.author.id %}
+<a href= "{% url 'update_post' post.pk %}"> (Edit) </a>
+<a href= "{% url 'delete_post' post.pk %}"> (Delete) </a>
+
+{% endif %}
+</br></br>
+<a href="{% url 'home' %}" type="button" class="btn btn-secondary">Home</a>
+<hr />
+<form action="{% url 'like_post' post.pk %}" method="POST">
+ 
+ {% csrf_token %}
+        <!-- name me kripiya karke sahi likhiye ga space wase ka dhyan dijiyega pls sir !! -->
+         
+        {% comment %} <button type="button" class="btn btn-primary">Dislike</button> {% endcomment %}
+{% if liked %}
+        <button type="submit" , name = "post_id", class="btn btn-danger" , value="{{ post.id }}"> Dislike   <i class="fa fa-thumbs-down"></i>     </button>
+{% else %}
+        <button type="submit" , name = "post_id", class="btn btn-primary" , value="{{ post.id }}"> Like <i class="fa fa-thumbs-up"></i> </button>
+{% endif %}
+</form>
+{{ total_likes }} - likes
+
+{% endblock %}

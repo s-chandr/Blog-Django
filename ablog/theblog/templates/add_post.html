@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Add Blog post{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<h2>Add Blog Post<h2>
+<form method="post" >
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+        <button class="btn btn-primary ">POST</button>  
+        <a href="{% url 'home' %}" type="button" class="btn btn-secondary">Home</a>
+    </div>
+    
+    <script>
+    var name = "{{ user.id }}";     
+    document.getElementById('elder').value = name;     
+    </script>
+    
+    {% else %}
+    <h1>YOu are not allowed here and you know that !! </h1>
+    
+    {% endif %}
+    
+{% endblock %}

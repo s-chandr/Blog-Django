@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<ul>
+
+{% for category in cat_menu %}                                                                           <!-- slugify replaces space with dash'-' fir usko views me apan wapas replace kar lete hai-->
+    <li> <a href= "{% url 'categories' category.name|slugify %}">{{category.name}}</a>
+    </li>
+    
+{% endfor %}
+
+</ul>   
+    
+
+
+{% endblock %}

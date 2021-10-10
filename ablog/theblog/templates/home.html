@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>All Posts<h2>
+<ul>
+
+{% for post in object_list %}                                                                           <!-- slugify replaces space with dash'-' fir usko views me apan wapas replace kar lete hai-->
+    <li><p><a href= "{% url 'article-detail' post.pk%}" > <span style = "font-size: 30px;">{{post.title}}<span> </a>
+    <small style = "font-size: 13px;">- {{ post.author.first_name }} {{ post.author.last_name }}
+    - <a href= "{% url 'categories' post.category|slugify %}">{{post.category}}</a>
+    
+    {% if user.is_authenticated and user.id == post.author.id %} 
+    -   <a href= "{% url 'update_post' post.pk %}">  (Edit) </a> 
+        <a href= "{% url 'delete_post' post.pk %}"> (Delete) </a> 
+    {% endif %} 
+    {{post.post_date}}</br></small>
+    <small style = "font-size: 20px;">{{post.body|safe }}</li></small>
+    
+{% endfor %}
+
+</ul>   
+
+
+
+{% endblock %}
